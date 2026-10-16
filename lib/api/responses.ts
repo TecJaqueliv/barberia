@@ -7,6 +7,9 @@ export type ApiErrorCode =
   | "INVALID_JSON"
   | "NOT_FOUND"
   | "CORREO_DUPLICADO"
+  | "FRANJA_NO_DISPONIBLE"
+  | "LIMITE_CITAS_ALCANZADO"
+  | "CITA_YA_CANCELADA"
   | "INTERNAL_ERROR";
 
 export type ApiErrorDetails = {

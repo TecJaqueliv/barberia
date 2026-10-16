@@ -7,9 +7,15 @@ export class NotFoundError extends Error {
   }
 }
 
+export type ConflictCode =
+  | "CORREO_DUPLICADO"
+  | "FRANJA_NO_DISPONIBLE"
+  | "LIMITE_CITAS_ALCANZADO"
+  | "CITA_YA_CANCELADA";
+
 export class ConflictError extends Error {
-  readonly code: "CORREO_DUPLICADO";
-  constructor(code: "CORREO_DUPLICADO", message: string) {
+  readonly code: ConflictCode;
+  constructor(code: ConflictCode, message: string) {
     super(message);
     this.name = "ConflictError";
     this.code = code;
