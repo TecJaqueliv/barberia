@@ -1,20 +1,20 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 
 import { ClientesManager } from "./_components/clientes-manager";
 
 export const metadata: Metadata = {
-  title: "Clientes | edTeams",
+  title: "Clientes",
 };
 
 export default function ClientesPage() {
   return (
-    <main className="mx-auto flex w-full max-w-4xl flex-col gap-6 p-4 sm:p-6">
+    <main
+      id="contenido"
+      className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-8 px-4 py-10 sm:px-6"
+    >
       <header className="flex flex-col gap-2">
-        <Link href="/" className="w-fit text-sm underline">
-          ← Inicio
-        </Link>
-        <h1 className="text-2xl font-semibold sm:text-3xl">Clientes</h1>
+        <h1 className="text-3xl font-bold tracking-tight">Clientes</h1>
+        <p className="text-muted">Registra y gestiona la información de tus clientes.</p>
       </header>
       <ClientesManager />
     </main>

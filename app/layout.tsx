@@ -1,10 +1,14 @@
 import type { Metadata, Viewport } from "next";
+import { SiteFooter } from "./_components/site-footer";
 import { SiteHeader } from "./_components/site-header";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "edTeams",
-  description: "Proyecto Barbería edTeams",
+  title: {
+    default: "Barbería edTeams",
+    template: "%s | Barbería edTeams",
+  },
+  description: "Cortes, barba y afeitado clásico. Agenda tu cita en línea.",
 };
 
 export const viewport: Viewport = {
@@ -18,6 +22,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <SiteHeader />
         {children}
+        <SiteFooter />
       </body>
     </html>
   );

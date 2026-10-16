@@ -9,6 +9,8 @@ import {
   mensajeAmigable,
 } from "@/lib/client/clientes";
 import type { Cliente } from "@/lib/types/cliente";
+import { buttonClasses } from "@/app/_components/button";
+import { cardClasses } from "@/app/_components/card";
 
 import { ClienteForm } from "./cliente-form";
 import { ClientesList } from "./clientes-list";
@@ -120,104 +122,122 @@ export function ClientesManager() {
 
   return (
     <div className="flex flex-col gap-6">
-      <input
-        type="search"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        aria-label="Buscar clientes"
-        placeholder="Buscar por nombre, correo o teléfono"
-        maxLength={100}
-        className="w-full rounded border border-current/20 bg-background px-3 py-2 placeholder:text-foreground/50 focus:outline-none focus:ring-2 focus:ring-foreground/40"
-      />
-
-      <ClienteForm
-        key={editing?.id ?? "nuevo"}
-        ref={formRef}
-        cliente={editing}
-        onSaved={handleSaved}
-        onCancel={handleCancel}
-      />
-
-      <div role="status" className="min-h-6 text-sm">
-        {notice && (
-          <p className={notice.tipo === "ok" ? "text-green-400" : "text-red-400"}>
-            {notice.texto}
-          </p>
-        )}
+      <div className="relative">
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={2}
+          strokeLinecap="round"
+          className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted"
+        >
+          <circle cx="11" cy="11" r="7" />
+          <path d="M20 20l-3.5-3.5" />
+        </svg>
+        <input
+          type="search"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          aria-label="Buscar clientes"
+          placeholder="Buscar por nombre, correo o teléfono"
+          maxLength={100}
+          className="w-full rounded-xl border border-border bg-surface py-2.5 pr-4 pl-10 placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent-2/60"
+        />
       </div>
 
-      <section aria-labelledby="clientes-lista-titulo" className="flex flex-col gap-4">
-        <h2 id="clientes-lista-titulo" className="text-lg font-semibold">
-          Listado
-        </h2>
+      <div className="flex flex-col gap-6 lg:grid lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:items-start">
+        <ClienteForm
+          key={editing?.id ?? "nuevo"}
+          ref={formRef}
+          cliente={editing}
+          onSaved={handleSaved}
+          onCancel={handleCancel}
+        />
 
-        {status === "loading" && (
-          <p aria-busy="true" className="opacity-70">
-            Cargando clientes…
-          </p>
-        )}
-
-        {status === "error" && (
-          <div
-            role="alert"
-            className="flex flex-col items-start gap-3 rounded border border-red-400/40 bg-red-400/10 p-4"
-          >
-            <p>{loadError}</p>
-            <button
-              type="button"
-              onClick={cargar}
-              className="rounded border border-current/20 px-4 py-2 hover:bg-foreground/5"
-            >
-              Reintentar
-            </button>
-          </div>
-        )}
-
-        {status === "ready" && clientes.length === 0 && (
-          <p className="opacity-70">
-            {debouncedQuery.trim()
-              ? `No hay clientes que coincidan con «${debouncedQuery.trim()}»`
-              : "Aún no hay clientes registrados."}
-          </p>
-        )}
-
-        {status === "ready" && clientes.length > 0 && (
-          <>
-            <ClientesList
-              clientes={clientes}
-              onEdit={handleEdit}
-              onDelete={handleDelete}
-              deletingId={deletingId}
-            />
-            <nav
-              aria-label="Paginación"
-              className="flex flex-wrap items-center justify-between gap-2 text-sm"
-            >
-              <p>
-                Mostrando {desde}–{hasta} de {total}
+        <div className="flex flex-col gap-4">
+          <div role="status" className="min-h-6 text-sm">
+            {notice && (
+              <p className={notice.tipo === "ok" ? "text-green-400" : "text-red-400"}>
+                {notice.texto}
               </p>
-              <div className="flex gap-2">
+            )}
+          </div>
+
+          <section aria-labelledby="clientes-lista-titulo" className="flex flex-col gap-4">
+            <h2 id="clientes-lista-titulo" className="text-lg font-semibold">
+              Listado
+            </h2>
+
+            {status === "loading" && (
+              <p aria-busy="true" className={`${cardClasses} text-center text-muted`}>
+                Cargando clientes…
+              </p>
+            )}
+
+            {status === "error" && (
+              <div
+                role="alert"
+                className="flex flex-col items-start gap-3 rounded-xl border border-red-400/40 bg-red-400/10 p-4"
+              >
+                <p>{loadError}</p>
                 <button
                   type="button"
-                  onClick={() => irAOffset(Math.max(0, offset - LIMIT))}
-                  disabled={offset === 0}
-                  className="rounded border border-current/20 px-3 py-1.5 hover:bg-foreground/5 disabled:opacity-50"
+                  onClick={cargar}
+                  className={buttonClasses({ variant: "secondary", size: "md" })}
                 >
-                  Anterior
-                </button>
-                <button
-                  type="button"
-                  onClick={() => irAOffset(offset + LIMIT)}
-                  disabled={offset + LIMIT >= total}
-                  className="rounded border border-current/20 px-3 py-1.5 hover:bg-foreground/5 disabled:opacity-50"
-                >
-                  Siguiente
+                  Reintentar
                 </button>
               </div>
-            </nav>
-          </>
-        )}
-      </section>
+            )}
+
+            {status === "ready" && clientes.length === 0 && (
+              <p className={`${cardClasses} text-center text-muted`}>
+                {debouncedQuery.trim()
+                  ? `No hay clientes que coincidan con «${debouncedQuery.trim()}»`
+                  : "Aún no hay clientes registrados."}
+              </p>
+            )}
+
+            {status === "ready" && clientes.length > 0 && (
+              <>
+                <ClientesList
+                  clientes={clientes}
+                  onEdit={handleEdit}
+                  onDelete={handleDelete}
+                  deletingId={deletingId}
+                />
+                <nav
+                  aria-label="Paginación"
+                  className="flex flex-wrap items-center justify-between gap-2 text-sm"
+                >
+                  <p className="text-muted">
+                    Mostrando {desde}–{hasta} de {total}
+                  </p>
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      onClick={() => irAOffset(Math.max(0, offset - LIMIT))}
+                      disabled={offset === 0}
+                      className={buttonClasses({ variant: "secondary", size: "sm" })}
+                    >
+                      Anterior
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => irAOffset(offset + LIMIT)}
+                      disabled={offset + LIMIT >= total}
+                      className={buttonClasses({ variant: "secondary", size: "sm" })}
+                    >
+                      Siguiente
+                    </button>
+                  </div>
+                </nav>
+              </>
+            )}
+          </section>
+        </div>
+      </div>
     </div>
   );
 }

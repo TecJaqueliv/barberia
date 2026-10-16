@@ -9,6 +9,8 @@ import {
   updateCliente,
 } from "@/lib/client/clientes";
 import type { Cliente } from "@/lib/types/cliente";
+import { buttonClasses } from "@/app/_components/button";
+import { cardClasses } from "@/app/_components/card";
 
 type Campo = "nombre" | "correo" | "telefono" | "detalle";
 type Values = Record<Campo, string>;
@@ -22,7 +24,7 @@ type Props = {
 };
 
 const inputClass =
-  "w-full rounded border border-current/20 bg-background px-3 py-2 placeholder:text-foreground/50 focus:outline-none focus:ring-2 focus:ring-foreground/40 aria-[invalid=true]:border-red-400";
+  "w-full rounded-xl border border-border bg-background px-3 py-2.5 placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent-2/60 aria-[invalid=true]:border-red-400";
 
 function valoresIniciales(cliente: Cliente | null): Values {
   return {
@@ -97,7 +99,7 @@ export function ClienteForm({ cliente, onSaved, onCancel, ref }: Props) {
     <form
       ref={ref}
       onSubmit={handleSubmit}
-      className="flex flex-col gap-4 rounded border border-current/20 p-4"
+      className={`flex flex-col gap-4 ${cardClasses}`}
       aria-labelledby="cliente-form-titulo"
     >
       <h2 id="cliente-form-titulo" className="text-lg font-semibold">
@@ -152,7 +154,7 @@ export function ClienteForm({ cliente, onSaved, onCancel, ref }: Props) {
           {errorDe("telefono")}
         </div>
 
-        <p className="self-end text-sm opacity-70">Indica al menos correo o teléfono.</p>
+        <p className="self-end text-sm text-muted">Indica al menos correo o teléfono.</p>
 
         <div className="flex flex-col gap-1 sm:col-span-2">
           <label htmlFor="cliente-detalle" className="text-sm font-medium">
@@ -179,7 +181,7 @@ export function ClienteForm({ cliente, onSaved, onCancel, ref }: Props) {
         <button
           type="submit"
           disabled={submitting}
-          className="rounded bg-foreground px-4 py-2 text-background disabled:opacity-50"
+          className={buttonClasses({ variant: "primary", size: "md" })}
         >
           {submitting ? "Guardando…" : cliente ? "Guardar cambios" : "Crear cliente"}
         </button>
@@ -188,7 +190,7 @@ export function ClienteForm({ cliente, onSaved, onCancel, ref }: Props) {
             type="button"
             onClick={() => onCancel()}
             disabled={submitting}
-            className="rounded border border-current/20 px-4 py-2 hover:bg-foreground/5 disabled:opacity-50"
+            className={buttonClasses({ variant: "secondary", size: "md" })}
           >
             Cancelar
           </button>
