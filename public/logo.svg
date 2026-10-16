@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 48" width="200" height="48" role="img" aria-labelledby="t">
+  <title id="t">Barbería</title>
+  <defs>
+    <clipPath id="pole-body">
+      <rect x="12" y="8" width="16" height="32" />
+    </clipPath>
+  </defs>
+  <rect x="9" y="2" width="22" height="6" rx="3" fill="#ededed" />
+  <rect x="12" y="8" width="16" height="32" fill="#ededed" />
+  <g clip-path="url(#pole-body)">
+    <polygon points="12,14 28,6 28,12 12,20" fill="#ef4444" />
+    <polygon points="12,24 28,16 28,22 12,30" fill="#3b82f6" />
+    <polygon points="12,34 28,26 28,32 12,40" fill="#ef4444" />
+  </g>
+  <rect x="9" y="40" width="22" height="6" rx="3" fill="#ededed" />
+  <text x="52" y="32" fill="#ededed" font-family="ui-sans-serif, system-ui, sans-serif" font-size="24" font-weight="600">Barbería</text>
+</svg>

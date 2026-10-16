@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { SiteHeader } from "./_components/site-header";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -15,6 +16,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="es" className="dark h-full antialiased">
       <body className="min-h-full flex flex-col bg-background text-foreground">
+        <SiteHeader />
         {children}
       </body>
     </html>
