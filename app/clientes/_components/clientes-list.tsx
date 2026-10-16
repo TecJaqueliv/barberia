@@ -45,7 +45,7 @@ export function ClientesList({ clientes, onEdit, onDelete, deletingId }: Props) 
                 onClick={() => onDelete(c)}
                 disabled={eliminando}
                 aria-label={`Eliminar a ${c.nombre}`}
-                className="rounded border border-red-600/40 px-3 py-1.5 text-sm text-red-600 hover:bg-red-600/10 disabled:opacity-50"
+                className="rounded border border-red-400/40 px-3 py-1.5 text-sm text-red-400 hover:bg-red-400/10 disabled:opacity-50"
               >
                 {eliminando ? "Eliminando…" : "Eliminar"}
               </button>

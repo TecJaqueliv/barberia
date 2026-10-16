@@ -127,7 +127,7 @@ export function ClientesManager() {
         aria-label="Buscar clientes"
         placeholder="Buscar por nombre, correo o teléfono"
         maxLength={100}
-        className="w-full rounded border border-current/20 bg-background px-3 py-2"
+        className="w-full rounded border border-current/20 bg-background px-3 py-2 placeholder:text-foreground/50 focus:outline-none focus:ring-2 focus:ring-foreground/40"
       />
 
       <ClienteForm
@@ -140,7 +140,7 @@ export function ClientesManager() {
 
       <div role="status" className="min-h-6 text-sm">
         {notice && (
-          <p className={notice.tipo === "ok" ? "text-green-700 dark:text-green-400" : "text-red-600"}>
+          <p className={notice.tipo === "ok" ? "text-green-400" : "text-red-400"}>
             {notice.texto}
           </p>
         )}
@@ -160,7 +160,7 @@ export function ClientesManager() {
         {status === "error" && (
           <div
             role="alert"
-            className="flex flex-col items-start gap-3 rounded border border-red-600/40 bg-red-600/5 p-4"
+            className="flex flex-col items-start gap-3 rounded border border-red-400/40 bg-red-400/10 p-4"
           >
             <p>{loadError}</p>
             <button

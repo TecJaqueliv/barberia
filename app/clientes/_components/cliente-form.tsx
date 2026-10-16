@@ -22,7 +22,7 @@ type Props = {
 };
 
 const inputClass =
-  "w-full rounded border border-current/20 bg-background px-3 py-2 aria-[invalid=true]:border-red-600";
+  "w-full rounded border border-current/20 bg-background px-3 py-2 placeholder:text-foreground/50 focus:outline-none focus:ring-2 focus:ring-foreground/40 aria-[invalid=true]:border-red-400";
 
 function valoresIniciales(cliente: Cliente | null): Values {
   return {
@@ -87,7 +87,7 @@ export function ClienteForm({ cliente, onSaved, onCancel, ref }: Props) {
     const error = fieldErrors[campo]?.[0];
     if (!error) return null;
     return (
-      <p id={`cliente-${campo}-error`} className="text-sm text-red-600">
+      <p id={`cliente-${campo}-error`} className="text-sm text-red-400">
         {error}
       </p>
     );
@@ -170,7 +170,7 @@ export function ClienteForm({ cliente, onSaved, onCancel, ref }: Props) {
       </div>
 
       {formError && (
-        <p role="alert" className="text-sm text-red-600">
+        <p role="alert" className="text-sm text-red-400">
           {formError}
         </p>
       )}
